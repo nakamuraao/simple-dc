@@ -76,7 +76,6 @@ client.on('messageDelete', async msg => {
     } else { return; };
   } else {
     if (await Obj.findLogChannel(msg.guildId)) {
-
       const embed = new MessageEmbed().setColor('GREEN').setTitle(`訊息刪除 #${msg.channel.name}`).setDescription(msg.author.tag);
       if (msg.content) {
         embed.addFields({name: '訊息內容', value: `${msg.content}`, inline: false});
@@ -89,13 +88,15 @@ client.on('messageDelete', async msg => {
 
 client.on('messageUpdate', async (oldMessage, newMessage) => {
   const Obj = new logging.log;
-  if (await Obj.findLogChannel(msg.guildId)) {
+  const logChannel = client.channels.cache.get(await Obj.logChannelId(oldMessage.guildId));
+  if (await Obj.findLogChannel(oldMessage.guildId)) {
     const embed = new MessageEmbed().setColor('DARK_GREEN').setTitle(`訊息編輯 #${oldMessage.channel.name}`).setDescription(oldMessage.author.tag);
     if (oldMessage.content) {
       embed.addFields({name: '舊訊息', value: `${oldMessage.content}`, inline: false},{name: '新訊息', value: `${newMessage.content}`, inline: false});
     } else {
       embed.addFields({name: '舊訊息', value: '`'+'nothing'+'`', inline: false},{name: '新訊息', value: `${newMessage.content}`, inline: false});
     }
+    await logChannel.send({ embeds:[embed] });
   } else { return; };
 })
 

@@ -4,8 +4,8 @@ const log = require('../modules/dbFunction/log');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('log-attatchments')
-    .setDescription('在此頻道紀錄附件刪除')
+    .setName('log')
+    .setDescription('在此頻道紀錄伺服器訊息')
     .addSubcommand(sub =>
       sub.setName('add').setDescription('新增記錄頻道')
     )
@@ -24,22 +24,22 @@ module.exports = {
     if (interaction.options.getSubcommand() === 'add') {
       if (!await Obj.findLogChannel(serverId)) {
         await Obj.addLogChannel(serverId, interaction.guild.name, channelId);
-        await interaction.reply('已將此頻道設為附件記錄頻道');
+        await interaction.reply('已將此頻道設為記錄頻道');
         logTime();
-        console.log(`${interaction.user.tag} 新增了附件紀錄頻道 ${channelId}`);
+        console.log(`${interaction.user.tag} 新增了紀錄頻道 ${channelId}`);
       } else {
-        await interaction.reply({ content:'此頻道已經是附件紀錄頻道', ephemeral: true });
+        await interaction.reply({ content:'此頻道已經是紀錄頻道', ephemeral: true });
         return;
       }
     } else if (interaction.options.getSubcommand() === 'remove') {
       if (!await Obj.findLogChannel(serverId)) {
-        await interaction.reply({ content:'此頻道非附件紀錄頻道', ephemeral: true });
+        await interaction.reply({ content:'此頻道非紀錄頻道', ephemeral: true });
         return;
       } else {
         await Obj.deleteLogChannel(serverId);
-        await interaction.reply('已取消附件紀錄頻道');
+        await interaction.reply('已取消紀錄頻道');
         logTime();
-        console.log(`${interaction.user.tag} 取消了附件紀錄頻道 ${channelId}`);
+        console.log(`${interaction.user.tag} 取消了紀錄頻道 ${channelId}`);
       }
     }
   }
