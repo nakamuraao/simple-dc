@@ -1,0 +1,9 @@
+# Node files
+node_modules
+package-lock.json
+
+# Discord config file
+config.json
+
+# Others
+database.sqlite

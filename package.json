@@ -1,0 +1,21 @@
+{
+  "name": "fjumed",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "run": "node .",
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/builders": "^0.13.0",
+    "@discordjs/rest": "^0.4.1",
+    "axios": "^1.2.1",
+    "discord-api-types": "^0.33.0",
+    "discord.js": "^13.7.0"
+  }
+}
